@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>计算24</title>
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>计算24</h1>
+    <div class="description">利用四则运算，使得4个随机数的运算结果是24.</div>
+    <div>
+      <div id='content'>
+        <div class='calc'>
+          <div id="num0" class="num">5</div>
+          <select id='op1' class="op">
+            <option value="+" selected>＋</option>
+            <option value="-">－</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+          </select>
+          <div id="num1" class="num">5</div>
+          <select id='op2' class="op">
+            <option value="+" selected>＋</option>
+            <option value="-">－</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+          </select>
+          <div id="num2" class="num">6</div>
+          <select id='op3' class="op">
+            <option value="+" selected>＋</option>
+            <option value="-">－</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+          </select>
+          <div id="num3" class="num">4</div>
+          <div><span>=</span><span id='result'>?</div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div id='tips'>答案正确</div>
+        <div><span>倒计时</span><span id="timer">1:00</span><span>秒</span>
+          </div>
+          <div id="score">当前得分：1000</div>
+        </div>
+        <div><button id="start">游戏开始</button></div>
+      </div>
+    </div>
+    <script src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://libs.useso.com/js/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

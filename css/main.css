@@ -1,0 +1,58 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+.clearfix {
+  clear: both;
+}
+.wrap {
+  width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+h1 {
+  text-align: center;
+  font: "微软雅黑";
+  font-size: 4em;
+  margin-top: 10px;
+}
+.description {
+  display: block;
+  border: solid 1px red;
+  font-style: italic;
+  color: red;
+  background: #cc0;
+  height: 100px;
+  margin: 10px;
+}
+.calc {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.calc div, select {
+  font-size: 4em;
+  margin: 5px;
+  float: left;
+}
+
+.calc div:hover{
+  background: #ffc;
+}
+#result {
+  text-align: center;
+  color: red;
+}
+#tips{
+  display: none;
+}
+
+.num{
+  border:solid 1px red;
+  width: 80px;
+  height: 80px;
+}
+
+.op{
+  border:none;
+}
