@@ -1,10 +1,12 @@
 //初始化代码
 //产生随机数并显示
 function gameConfig() {
-  this.numbers = new Array();
-  this.result = 0;
-  this.gameTimer;
-  this.sorce=0;
+  this.numbers = new Array(); //随机数数组
+  this.result = 0; //计算结果
+  this.gameTimer; //计时器
+  this.sorce = 0; //得分
+  this.timerCount = 60; //初始化计时秒数
+  this.moves = 0;     //移动的次数
 
   return this;
 };
@@ -13,7 +15,7 @@ var config = gameConfig();
 
 //重置计时器
 function resetGame() {
-  $("#timer").text('60');
+  $("#timer").text(this.timerCount);
   clearInterval(config.gameTimer);
 }
 
@@ -37,16 +39,22 @@ function startGame() {
       break;
     };
   }
+
+  $("#start").hide();
+  $(".calc").show();
+  $("#score").show();
+  $(".timerdiv").show();
   $("#result").text(config.result);
+  $(".timer").text(config.timerCount);
   config.gameTimer = setInterval(function() {
-    remainTime = parseInt($("#timer").text());
+    remainTime = parseInt($(".timer").text());
     remainTime--;
+    $(".timer").text(remainTime);
     if (remainTime == 0) {
       clearInterval(config.gameTimer);
+      loseGame();
       return;
     };
-
-    $("#timer").text(remainTime);
   }, 1000);
 }
 
@@ -55,14 +63,15 @@ $("#start").click(function(event) {
 });
 
 //拖动
-$(".calc div").draggable({
+$(".calc .num").draggable({
   helper: "clone"
 });
-$(".calc div").droppable({
-  accept: ".calc div",
+$(".calc .num").droppable({
+  accept: ".calc .num",
   activeClass: "ui-state-hover",
   hoverClass: "ui-state-active",
   drop: function(event, ui) {
+    config.moves++;
     var val = $(this).text();
     $(this).text(ui.helper.text());
     ui.draggable.text(val);
@@ -92,12 +101,17 @@ function reCalc() {
   }
 }
 
-function winGame(){
+function winGame() {
   $("#tips").text('恭喜你，答案正确，游戏胜利！');
   $("#tips").show();
 }
 
-function loseGame(){
+function loseGame() {
   $("#tips").text('很遗憾，时间到了，游戏失败！');
   $("#tips").show();
+  //todo计算得分
+}
+
+function frozeScreen{
+  //
 }

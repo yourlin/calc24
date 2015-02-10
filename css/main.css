@@ -5,6 +5,9 @@
 .clearfix {
   clear: both;
 }
+body {
+  background: #333;
+}
 .wrap {
   width: 850px;
   margin-left: auto;
@@ -17,42 +20,70 @@ h1 {
   margin-top: 10px;
 }
 .description {
+  padding: 5px;
   display: block;
-  border: solid 1px red;
   font-style: italic;
-  color: red;
-  background: #cc0;
-  height: 100px;
-  margin: 10px;
+  color: white;
+  background: #7c4b00;
+  margin: 5px;
 }
 .calc {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  display: none;
 }
 .calc div, select {
   font-size: 4em;
   margin: 5px;
   float: left;
+  border-radius: 10px;
 }
-
-.calc div:hover{
+.calc .num {
+  background: #ca6924;
+}
+.calc select {
+  background: #2e4e7e;
+}
+.calc .num:hover {
   background: #ffc;
 }
 #result {
   text-align: center;
   color: red;
 }
-#tips{
+#tips {
   display: none;
+  font-size: 3em;
+  color: #f05654;
+  text-align: center;
 }
-
-.num{
-  border:solid 1px red;
+.num {
+  border: solid 1px red;
   width: 80px;
   height: 80px;
 }
-
-.op{
-  border:none;
+.op {
+  border: none;
+}
+#start {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  margin: 0 auto;
+  font-size: 2em;
+  display: block;
+}
+.timerdiv {
+  text-align: center;
+  display: none;
+}
+.timer {
+  color: red;
+  font-size: 2em;
+}
+#score {
+  text-align: center;
+  font-size: 2em;
+  display: none;
 }
