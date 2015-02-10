@@ -6,7 +6,12 @@ function gameConfig() {
   this.gameTimer; //计时器
   this.sorce = 0; //得分
   this.timerCount = 60; //初始化计时秒数
-  this.moves = 0;     //移动的次数
+  this.moves = 0; //移动的次数
+  this.gameTimer;
+  this.sorce = 0;
+
+  this.numbersPerm = new Array(); //随机数排列序列数组
+  this.operatorCombines = new Array(); //操作符组合序列数组
 
   return this;
 };
@@ -17,11 +22,129 @@ var config = gameConfig();
 function resetGame() {
   $("#timer").text(this.timerCount);
   clearInterval(config.gameTimer);
+};
+
+function addToNumbers(element) {
+  config.numbersPerm.push(element);
+}
+
+function addToOPs(element) {
+  config.operatorCombines.push(element);
+}
+
+//检查当前序列，是否可用
+function isAvailableFormula() {
+  config.numbersPerm.length = 0;
+  config.operatorCombines.length = 0;
+  perm(config.numbers, 4, addToNumbers);
+  combin(["+", "-", "*", "/"], 3, addToOPs);
+
+  for (var i = 0; i < config.numbersPerm.length; i++) {
+    for (var j = 0; j < config.operatorCombines.length; j++) {
+      var formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3];
+      if (eval(formula) == 24) {
+        return true;
+      }
+
+      formula = "(" + config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + ")" + config.operatorCombines[j][1] + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3];
+      if (eval(formula) == 24) {
+        return true;
+      }
+
+      formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + "(" + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + ")" + config.operatorCombines[j][2] + config.numbersPerm[i][3];
+      if (eval(formula) == 24) {
+        return true;
+      }
+
+      formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] + "(" + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3] + ")";
+      if (eval(formula) == 24) {
+        return true;
+      }
+
+      formula = "(" + config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + ")" + config.operatorCombines[j][1] + "(" + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3] + ")";
+      if (eval(formula) == 24) {
+        return true;
+      }
+
+      formula = "(" + config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + ")" + config.operatorCombines[j][2] + config.numbersPerm[i][3];
+      if (eval(formula) == 24) {
+        return true;
+      }
+
+      formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + "(" + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3] + ")";
+      if (eval(formula) == 24) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+};
+
+function showResult(result) {
+  document.write(result);
+  document.write("<br>");
+};
+
+/*
+排列（递归链接）算法
+1、设定源数组为输入数组，结果数组存放排列结果（初始化为空数组）；
+2、逐一将源数组的每个元素链接到结果数组中（生成新数组对象）；
+3、从原数组中删除被链接的元素（生成新数组对象）；
+4、将新的源数组和结果数组作为参数递归调用步骤2、3，直到源数组为空，则输出一个排列。
+*/
+function perm(arr, count, callback) {
+  if (arr.length < count) {
+    alert("参数错误");
+  };
+  (function fn(source, result) {
+    if (source.length == arr.length - count)
+      callback(result);
+    else
+      for (var i = 0; i < source.length; i++)
+        fn(source.slice(0, i).concat(source.slice(i + 1)), result.concat(source[i]));
+  })(arr, []);
+}
+
+//组合算法
+function combin(arr, count, callback) {
+  if (arr.length < count) {
+    alert("参数错误");
+  };
+
+  (function fn(source, result) {
+    //结果的个数等于指定长度
+    if (result.length == count) {
+      callback(result);
+      return;
+    }
+
+    for (var i = 0; i < source.length; i++) {
+      fn(source, result.concat(source[i]));
+    }
+  })(arr, []);
 }
 
 //设置计时器
 function startGame() {
   resetGame();
+
+  //设置拖放
+  $(".calc div").draggable({
+    helper: "clone"
+  });
+  $(".calc div").droppable({
+    accept: ".calc div",
+    activeClass: "ui-state-hover",
+    hoverClass: "ui-state-active",
+    drop: function(event, ui) {
+      var val = $(this).text();
+      $(this).text(ui.helper.text());
+      ui.draggable.text(val);
+      reCalc();
+    }
+  });
+
   while (true) {
     for (i = 0; i < 4; i++) {
       config.numbers[i] = Math.floor(Math.random() * 13 + 1);
@@ -30,9 +153,11 @@ function startGame() {
     op1 = $("#op1").val();
     op2 = $("#op2").val();
     op3 = $("#op3").val();
+    //添加规则判断，是否可以计算出24
+    isAvailableFormula();
+
     formula = config.numbers[0] + op1 + config.numbers[1] + op2 + config.numbers[2] + op3 + config.numbers[3];
     config.result = eval(formula);
-    //TODO： 添加规则判断，是否可以计算出24
 
     //默认值不能是24
     if (config.result != 24) {
@@ -56,27 +181,10 @@ function startGame() {
       return;
     };
   }, 1000);
-}
+};
 
 $("#start").click(function(event) {
   startGame();
-});
-
-//拖动
-$(".calc .num").draggable({
-  helper: "clone"
-});
-$(".calc .num").droppable({
-  accept: ".calc .num",
-  activeClass: "ui-state-hover",
-  hoverClass: "ui-state-active",
-  drop: function(event, ui) {
-    config.moves++;
-    var val = $(this).text();
-    $(this).text(ui.helper.text());
-    ui.draggable.text(val);
-    reCalc();
-  }
 });
 
 //操作符改变后重新计算
@@ -99,12 +207,12 @@ function reCalc() {
   } else {
     $("#tips").hide();
   }
-}
+};
 
 function winGame() {
   $("#tips").text('恭喜你，答案正确，游戏胜利！');
   $("#tips").show();
-}
+};
 
 function loseGame() {
   $("#tips").text('很遗憾，时间到了，游戏失败！');
@@ -112,6 +220,6 @@ function loseGame() {
   //todo计算得分
 }
 
-function frozeScreen{
+function frozeScreen() {
   //
 }
