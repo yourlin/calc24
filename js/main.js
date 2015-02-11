@@ -7,14 +7,13 @@ function gameConfig() {
   this.sorce = 0; //得分
   this.timerCount = 60; //初始化计时秒数
   this.moves = 0; //移动的次数
-  this.gameTimer;
-  this.sorce = 0;
+  this.brackets = 0; //括号类型
 
   this.numbersPerm = new Array(); //随机数排列序列数组
   this.operatorCombines = new Array(); //操作符组合序列数组
 
   return this;
-};
+}
 
 var config = gameConfig();
 
@@ -22,7 +21,7 @@ var config = gameConfig();
 function resetGame() {
   $("#timer").text(this.timerCount);
   clearInterval(config.gameTimer);
-};
+}
 
 function addToNumbers(element) {
   config.numbersPerm.push(element);
@@ -130,10 +129,10 @@ function startGame() {
   resetGame();
 
   //设置拖放
-  $(".calc div").draggable({
+  $(".calc .num").draggable({
     helper: "clone"
   });
-  $(".calc div").droppable({
+  $(".calc .num").droppable({
     accept: ".calc div",
     activeClass: "ui-state-hover",
     hoverClass: "ui-state-active",
@@ -141,6 +140,7 @@ function startGame() {
       var val = $(this).text();
       $(this).text(ui.helper.text());
       ui.draggable.text(val);
+      resetBrackets();
       reCalc();
     }
   });
@@ -166,6 +166,7 @@ function startGame() {
   }
 
   $("#start").hide();
+  $("#bracketsOptions").show();
   $(".calc").show();
   $("#score").show();
   $(".timerdiv").show();
@@ -181,7 +182,7 @@ function startGame() {
       return;
     };
   }, 1000);
-};
+}
 
 $("#start").click(function(event) {
   startGame();
@@ -189,17 +190,31 @@ $("#start").click(function(event) {
 
 //操作符改变后重新计算
 $("select").change(function(event) {
+  resetBrackets();
   reCalc();
 });
 
-function reCalc() {
+//重置括号的位置
+function resetBrackets(){
   for (i = 0; i < 4; i++) {
-    config.numbers[i] = parseInt($("#num" + i).text());
+    $("#num" + i).text(
+      $("#num" + i).text().replace('(', '').replace(')', '')
+    );
+  }
+
+  addBrackets(config.brackets);
+}
+
+function reCalc() {
+  var num = new Array();
+  for (i = 0; i < 4; i++) {
+    num[i] = $("#num" + i).text();
+    config.numbers[i] = parseInt(num[i].replace('(', '').replace(')', ''));
   }
   op1 = $("#op1").val();
   op2 = $("#op2").val();
   op3 = $("#op3").val();
-  formula = config.numbers[0] + op1 + config.numbers[1] + op2 + config.numbers[2] + op3 + config.numbers[3];
+  formula = num[0] + op1 + num[1] + op2 + num[2] + op3 + num[3];
   config.result = eval(formula);
   $("#result").text(config.result);
   if (config.result == 24) {
@@ -212,14 +227,70 @@ function reCalc() {
 function winGame() {
   $("#tips").text('恭喜你，答案正确，游戏胜利！');
   $("#tips").show();
+  frozeScreen();
 };
 
 function loseGame() {
   $("#tips").text('很遗憾，时间到了，游戏失败！');
   $("#tips").show();
+  frozeScreen();
   //todo计算得分
 }
 
 function frozeScreen() {
-  //
+  $(".calc .num").draggable({
+    disabled: true
+  });
+  $(".calc .num").droppable({
+    disabled: true
+  });
+  $("select").attr("disabled", "disabled");
+}
+
+function addBrackets(index) {
+  config.brackets = index;
+  for (i = 0; i < 4; i++) {
+    config.numbers[i] = parseInt($("#num" + i).text().replace('(', '').replace(')', ''));
+  }
+
+  switch (index) {
+    case 0:
+      $("#num0").text(config.numbers[0]);
+      $("#num1").text(config.numbers[1]);
+      $("#num2").text(config.numbers[2]);
+      $("#num3").text(config.numbers[3]);
+      break;
+    case 1:
+      $("#num0").text('(' + config.numbers[0]);
+      $("#num1").text(config.numbers[1] + ')');
+      $("#num2").text(config.numbers[2]);
+      $("#num3").text(config.numbers[3]);
+      break;
+    case 2:
+      $("#num0").text(config.numbers[0]);
+      $("#num1").text(config.numbers[1]);
+      $("#num2").text('(' + config.numbers[2]);
+      $("#num3").text(config.numbers[3] + ')');
+      break;
+    case 3:
+      $("#num0").text('(' + config.numbers[0]);
+      $("#num1").text(config.numbers[1] + ')');
+      $("#num2").text('(' + config.numbers[2]);
+      $("#num3").text(config.numbers[3] + ')');
+      break;
+    case 4:
+      $("#num0").text('(' + config.numbers[0]);
+      $("#num1").text(config.numbers[1]);
+      $("#num2").text(config.numbers[2] + ')');
+      $("#num3").text(config.numbers[3]);
+      break;
+    case 5:
+      $("#num0").text(config.numbers[0]);
+      $("#num1").text('(' + config.numbers[1]);
+      $("#num2").text(config.numbers[2]);
+      $("#num3").text(config.numbers[3] + ')');
+      break;
+  }
+
+  reCalc();
 }

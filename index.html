@@ -10,7 +10,17 @@
 <body>
   <div class="wrap">
     <h1>计算24</h1>
-    <div class="description">利用四则运算，使得4个随机数的运算结果是24.</div>
+    <div class="description">
+      <p>利用四则运算，使得4个随机数的运算结果是24.</p>
+      <p>玩法：
+        <ol>
+          <li>拖动数字，改变其位置。</li>
+          <li>改变运算符（注意：运算符优先级）</li>
+          <li>在适当的位置添加括号，改变运算顺序</li>
+          <li>让结果等于24</li>
+        </ol>
+      </p>
+    </div>
 
     <div id='content'>
       <div>
@@ -39,10 +49,22 @@
           <option value="/">÷</option>
         </select>
         <div id="num3" class="num">4</div>
-        <div><span>=</span><span id='result'>?</div>
+        <div><span class="equal">=</span><span id='result'>?</div>
         </div>
 
         <div class="clearfix"></div>
+        <!-- 括号选择区 -->
+        <div id="bracketsOptions">
+          <div>括号选择</div>
+          <ul>
+            <li><a href="#" onclick="addBrackets(0)">a+b+c+d</a></li>
+            <li><a href="#" onclick="addBrackets(1)">(a+b)+c+d</a></li>
+            <li><a href="#" onclick="addBrackets(2)">a+b+(c+d)</a></li>
+            <li><a href="#" onclick="addBrackets(3)">(a+b)+(c+d)</a></li>
+            <li><a href="#" onclick="addBrackets(4)">(a+b+c)+d</a></li>
+            <li><a href="#" onclick="addBrackets(5)">a+(b+c+d)</a></li>
+          </ul>
+        </div>
         <div id='tips'>答案正确</div>
         <div class="timerdiv"><span>倒计时</span><span class="timer">60</span><span>秒</span>
         </div>

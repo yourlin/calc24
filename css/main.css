@@ -1,6 +1,7 @@
 * {
   padding: 0px;
   margin: 0px;
+  font-family: "微软雅黑";
 }
 .clearfix {
   clear: both;
@@ -9,13 +10,12 @@ body {
   background: #333;
 }
 .wrap {
-  width: 850px;
+  width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
 h1 {
   text-align: center;
-  font: "微软雅黑";
   font-size: 4em;
   margin-top: 10px;
 }
@@ -26,6 +26,8 @@ h1 {
   color: white;
   background: #7c4b00;
   margin: 5px;
+  border-radius: 10px;
+  padding: 10px 40px;
 }
 .calc {
   margin-left: auto;
@@ -48,9 +50,13 @@ h1 {
 .calc .num:hover {
   background: #ffc;
 }
+#equal{
+  font-size: 4em;
+}
 #result {
   text-align: center;
   color: red;
+  line-height: 100px;
 }
 #tips {
   display: none;
@@ -60,11 +66,13 @@ h1 {
 }
 .num {
   border: solid 1px red;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
 }
 .op {
   border: none;
+  height: 100px;
 }
 #start {
   width: 200px;
@@ -83,7 +91,42 @@ h1 {
   font-size: 2em;
 }
 #score {
+  color: snow;
   text-align: center;
   font-size: 2em;
   display: none;
+}
+#bracketsOptions {
+  margin: 0px auto;
+  width: 800px;
+  height: 180px;
+  background: #7c4b00;
+  border-radius: 10px;
+  display: none;
+}
+#bracketsOptions div {
+  text-align: center;
+  margin: 5px;
+}
+#bracketsOptions li {
+  list-style: none;
+  float: left;
+  display: block;
+  margin: 0 0 0 10px;
+}
+#bracketsOptions li a {
+  text-align: center;
+  display: block;
+  vertical-align: middle;
+  height: 120px;
+  width: 120px;
+  line-height: 120px;
+  color: white;
+  border-radius: 50%;
+}
+#bracketsOptions li a:link, bracketsOptions li a:visited {
+  background: plum;
+}
+#bracketsOptions li a:active, #bracketsOptions li a:hover {
+  background: crimson;
 }
