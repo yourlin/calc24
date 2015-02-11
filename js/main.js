@@ -162,7 +162,9 @@ function startGame() {
     op2 = $("#op2").val();
     op3 = $("#op3").val();
     //添加规则判断，是否可以计算出24
-    isAvailableFormula();
+    if(!isAvailableFormula()){
+      continue;
+    }
 
     formula = config.numbers[0] + op1 + config.numbers[1] + op2 + config.numbers[2] + op3 + config.numbers[3];
     config.result = eval(formula);
