@@ -11,6 +11,7 @@ function gameConfig() {
 
   this.numbersPerm = new Array(); //随机数排列序列数组
   this.operatorCombines = new Array(); //操作符组合序列数组
+  this.answerFormula;
 
   return this;
 }
@@ -42,36 +43,43 @@ function isAvailableFormula() {
     for (var j = 0; j < config.operatorCombines.length; j++) {
       var formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3];
       if (eval(formula) == 24) {
+        config.answerFormula = formula;
         return true;
       }
 
       formula = "(" + config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + ")" + config.operatorCombines[j][1] + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3];
       if (eval(formula) == 24) {
+        config.answerFormula = formula;
         return true;
       }
 
       formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + "(" + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + ")" + config.operatorCombines[j][2] + config.numbersPerm[i][3];
       if (eval(formula) == 24) {
+        config.answerFormula = formula;
         return true;
       }
 
       formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] + "(" + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3] + ")";
       if (eval(formula) == 24) {
+        config.answerFormula = formula;
         return true;
       }
 
       formula = "(" + config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + ")" + config.operatorCombines[j][1] + "(" + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3] + ")";
       if (eval(formula) == 24) {
+        config.answerFormula = formula;
         return true;
       }
 
       formula = "(" + config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + ")" + config.operatorCombines[j][2] + config.numbersPerm[i][3];
       if (eval(formula) == 24) {
+        config.answerFormula = formula;
         return true;
       }
 
       formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + "(" + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3] + ")";
       if (eval(formula) == 24) {
+        config.answerFormula = formula;
         return true;
       }
     }
@@ -232,6 +240,7 @@ function winGame() {
 
 function loseGame() {
   $("#tips").text('很遗憾，时间到了，游戏失败！');
+  $("#answer").text('参考答案：' + config.answerFormula);
   $("#tips").show();
   frozeScreen();
   //todo计算得分

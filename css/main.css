@@ -130,3 +130,9 @@ h1 {
 #bracketsOptions li a:active, #bracketsOptions li a:hover {
   background: crimson;
 }
+
+#answer {
+  font-size: 3em;
+  color: #f05654;
+  text-align: center;
+}
