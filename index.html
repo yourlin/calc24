@@ -26,33 +26,34 @@
       <div>
         <button id="start">游戏开始</button>
       </div>
+      <!-- 计算区 -->
       <div class='calc'>
-        <div id="num0" class="num">5</div>
-        <select id='op1' class="op">
-          <option value="+" selected>＋</option>
-          <option value="-">－</option>
-          <option value="*">×</option>
-          <option value="/">÷</option>
-        </select>
-        <div id="num1" class="num">5</div>
-        <select id='op2' class="op">
-          <option value="+" selected>＋</option>
-          <option value="-">－</option>
-          <option value="*">×</option>
-          <option value="/">÷</option>
-        </select>
-        <div id="num2" class="num">6</div>
-        <select id='op3' class="op">
-          <option value="+" selected>＋</option>
-          <option value="-">－</option>
-          <option value="*">×</option>
-          <option value="/">÷</option>
-        </select>
-        <div id="num3" class="num">4</div>
-        <div><span class="equal">=</span><span id='result'>?</div>
+        <div class='formula'>
+          <div id="num0" class="num">5</div>
+          <select id='op1' class="op">
+            <option value="+" selected>＋</option>
+            <option value="-">－</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+          </select>
+          <div id="num1" class="num">5</div>
+          <select id='op2' class="op">
+            <option value="+" selected>＋</option>
+            <option value="-">－</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+          </select>
+          <div id="num2" class="num">6</div>
+          <select id='op3' class="op">
+            <option value="+" selected>＋</option>
+            <option value="-">－</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+          </select>
+          <div id="num3" class="num">4</div>
+          <div><span class="equal">=</span><span id='result'>?</span></div>
+          <div class="clearfix"></div>
         </div>
-
-        <div class="clearfix"></div>
         <!-- 括号选择区 -->
         <div id="bracketsOptions">
           <div>括号选择</div>
@@ -65,18 +66,21 @@
             <li><a href="#" onclick="addBrackets(5)">a+(b+c+d)</a></li>
           </ul>
         </div>
+        <!-- End括号选择区 -->
         <div id='tips'>答案正确</div>
         <div id='answer'></div>
         <div class="timerdiv"><span>倒计时</span><span class="timer">60</span><span>秒</span>
+          </div>
+          <div id="score">当前得分：0</div>
+          <div id="moves">移动次数：0</div>
+          <div class="clearfix"></div>
         </div>
-        <div id="score">当前得分：0</div>
+
       </div>
 
-    </div>
-
-    <script src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://libs.useso.com/js/jqueryui/1.10.4/jquery-ui.min.js"></script>
-    <script src="./js/main.js"></script>
+      <script src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
+      <script src="http://libs.useso.com/js/jqueryui/1.10.4/jquery-ui.min.js"></script>
+      <script src="./js/main.js"></script>
 </body>
 
 </html>

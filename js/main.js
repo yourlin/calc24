@@ -13,15 +13,40 @@ function gameConfig() {
   this.operatorCombines = new Array(); //操作符组合序列数组
   this.answerFormula;
 
+  this.init = function() {
+    this.numbers.length = 0
+    this.result = 0;
+    this.gameTimer;
+    this.sorce = 0;
+    this.timerCount = 60;
+    this.moves = 0;
+    this.brackets = 0;
+    this.numbersPerm.length = 0;
+    this.operatorCombines.length = 0;
+    this.answerFormula = "";
+  };
+
   return this;
 }
 
 var config = gameConfig();
+$("#start").click(function(event) {
+  startGame();
+});
+
+//操作符改变后重新计算
+$("select").change(function(event) {
+  resetBrackets();
+  reCalc();
+  config.moves++;
+  $("#moves").text("移动次数：" + config.moves);
+});
 
 //重置计时器
 function resetGame() {
   $("#timer").text(this.timerCount);
   clearInterval(config.gameTimer);
+  config.init();
 }
 
 function addToNumbers(element) {
@@ -150,6 +175,8 @@ function startGame() {
       ui.draggable.text(val);
       resetBrackets();
       reCalc();
+      config.moves++;
+      $("#moves").text("移动次数：" + config.moves);
     }
   });
 
@@ -162,7 +189,7 @@ function startGame() {
     op2 = $("#op2").val();
     op3 = $("#op3").val();
     //添加规则判断，是否可以计算出24
-    if(!isAvailableFormula()){
+    if (!isAvailableFormula()) {
       continue;
     }
 
@@ -179,6 +206,7 @@ function startGame() {
   $("#bracketsOptions").show();
   $(".calc").show();
   $("#score").show();
+  $("#moves").show();
   $(".timerdiv").show();
   $("#result").text(config.result);
   $(".timer").text(config.timerCount);
@@ -194,18 +222,8 @@ function startGame() {
   }, 1000);
 }
 
-$("#start").click(function(event) {
-  startGame();
-});
-
-//操作符改变后重新计算
-$("select").change(function(event) {
-  resetBrackets();
-  reCalc();
-});
-
 //重置括号的位置
-function resetBrackets(){
+function resetBrackets() {
   for (i = 0; i < 4; i++) {
     $("#num" + i).text(
       $("#num" + i).text().replace('(', '').replace(')', '')
@@ -237,6 +255,13 @@ function reCalc() {
 function winGame() {
   $("#tips").text('恭喜你，答案正确，游戏胜利！');
   $("#tips").show();
+  var sorce, movesBonus, countDownBonus, baseSorce;
+  baseSorce = 50;
+  movesBonus = config.moves > 40 ? 0 : 40 - config.moves;
+  countDownBonus = 60 - config.timerCount;
+  sorce = movesBonus + countDownBonus + baseSorce;
+  config.sorce += sorce;
+  $("#score").text("当前得分" + config.sorce);
   frozeScreen();
 };
 
