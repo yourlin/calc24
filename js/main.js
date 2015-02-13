@@ -16,7 +16,7 @@ function gameConfig() {
   this.init = function() {
     this.numbers.length = 0
     this.result = 0;
-    this.gameTimer;
+    clearInterval(config.gameTimer);
     this.sorce = 0;
     this.timerCount = 60;
     this.moves = 0;
@@ -281,6 +281,7 @@ function frozeScreen() {
     disabled: true
   });
   $("select").attr("disabled", "disabled");
+  clearInterval(config.gameTimer);
 }
 
 function addBrackets(index) {
