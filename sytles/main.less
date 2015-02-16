@@ -40,26 +40,25 @@ h1 {
   display: none;
   height: 120px;
   background: #333;
-}
-.calc .num {
-  background: #ca6924;
-}
-.calc .num:hover {
-  background: #ffc;
-}
-.calc select {
-  background: #2e4e7e;
+  .num {
+    background: #ca6924;
+    &:hover {
+      background: #ffc;
+    }
+  }
+  select {
+    background: #2e4e7e;
+  }
 }
 .formula {
   margin: 0 auto;
   display: inline-block;
-}
-.formula > div,
-.formula > select {
-  font-size: 4em;
-  margin: 5px;
-  float: left;
-  border-radius: 10px;
+  >div, >select {
+    font-size: 4em;
+    margin: 5px;
+    .fl;
+    border-radius: 10px;
+  }
 }
 #equal {
   font-size: 4em;
@@ -114,34 +113,32 @@ h1 {
   background: #7c4b00;
   border-radius: 10px;
   display: none;
-}
-#bracketsOptions div {
-  text-align: center;
-  margin: 5px;
-}
-#bracketsOptions li {
-  list-style: none;
-  float: left;
-  display: block;
-  margin: 0 0 0 10px;
-}
-#bracketsOptions li a {
-  text-align: center;
-  display: block;
-  vertical-align: middle;
-  height: 120px;
-  width: 120px;
-  line-height: 120px;
-  color: white;
-  border-radius: 50%;
-}
-#bracketsOptions li a:link,
-#bracketsOptions li a:visited {
-  background: plum;
-}
-#bracketsOptions li a:active,
-#bracketsOptions li a:hover {
-  background: crimson;
+  div {
+    text-align: center;
+    margin: 5px;
+  }
+  li {
+    list-style: none;
+    .fl;
+    display: block;
+    margin: 0 0 0 10px;
+    a {
+      text-align: center;
+      display: block;
+      vertical-align: middle;
+      height: 120px;
+      width: 120px;
+      line-height: 120px;
+      color: white;
+      border-radius: 50%;
+      &:link, &:visited {
+        background: plum;
+      }
+      &:active, &:hover {
+        background: crimson;
+      }
+    }
+  }
 }
 #userBoard {
   z-index: 10;
@@ -154,41 +151,47 @@ h1 {
   font-size: 40px;
   margin: 0 auto;
   display: none;
-}
-#userBoard > div {
-  position: absolute;
-  top: 310px;
-  left: 140px;
-  display: inline-block;
-}
-#userBoard #tips {
-  color: #f05654;
-}
-#userBoard #answer {
-  color: #f05654;
-}
-#userBoard #continueGame {
-  padding: 10px 0;
-  width: 400px;
-  height: 150px;
-  margin: 0 auto;
-}
-#userBoard #continueGame div {
-  color: #FFF;
-}
-#userBoard #continueGame div em {
-  color: red;
-}
-#userBoard button {
-  border: #000 2px solid;
-  border-radius: 10px;
-  width: 200px;
-  height: 50px;
-  background: #99AFFB;
-}
-#userBoard button:hover {
-  background: #E8F795;
-}
-#userBoard #wishes {
-  color: red;
+  >div{
+    position: absolute;
+    top: 310px;
+    left: 140px;
+    display: inline-block;
+  }
+  #tips {
+    color: #f05654;
+  }
+  #answer {
+    color: #f05654;
+  }
+  #totalSocre{
+
+  }
+  #curSocre{
+
+  }
+  #continueGame {
+    padding: 10px 0;
+    width: 400px;
+    height: 150px;
+    margin: 0 auto;
+    div {
+      color: #FFF;
+      em {
+        color: red;
+      }
+    }
+  }
+  button{
+    border: #000 2px solid;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    background: #99AFFB;
+    &:hover{
+      background: #E8F795;
+    }
+  }
+  #wishes{
+    color: red;
+  }
 }

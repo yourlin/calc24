@@ -12,18 +12,20 @@ function gameConfig() {
   this.numbersPerm = new Array(); //随机数排列序列数组
   this.operatorCombines = new Array(); //操作符组合序列数组
   this.answerFormula;
+  this.isWin = false;
 
-  this.init = function() {
+  this.init = function(sorce) {
     this.numbers.length = 0
     this.result = 0;
     clearInterval(config.gameTimer);
-    this.sorce = 0;
+    this.sorce = sorce;
     this.timerCount = 60;
     this.moves = 0;
     this.brackets = 0;
     this.numbersPerm.length = 0;
     this.operatorCombines.length = 0;
     this.answerFormula = "";
+    this.isWin = false;
   };
 
   return this;
@@ -32,6 +34,7 @@ function gameConfig() {
 var config = gameConfig();
 $("#start").click(function(event) {
   startGame();
+  $('.description').hide();
 });
 
 //操作符改变后重新计算
@@ -43,10 +46,9 @@ $("select").change(function(event) {
 });
 
 //重置计时器
-function resetGame() {
+function resetGame(socre) {
   $("#timer").text(this.timerCount);
-  clearInterval(config.gameTimer);
-  config.init();
+  config.init(socre);
 }
 
 function addToNumbers(element) {
@@ -66,7 +68,8 @@ function isAvailableFormula() {
 
   for (var i = 0; i < config.numbersPerm.length; i++) {
     for (var j = 0; j < config.operatorCombines.length; j++) {
-      var formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] + config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3];
+      var formula = config.numbersPerm[i][0] + config.operatorCombines[j][0] + config.numbersPerm[i][1] + config.operatorCombines[j][1] +
+        config.numbersPerm[i][2] + config.operatorCombines[j][2] + config.numbersPerm[i][3];
       if (eval(formula) == 24) {
         config.answerFormula = formula;
         return true;
@@ -159,13 +162,26 @@ function combin(arr, count, callback) {
 
 //设置计时器
 function startGame() {
-  resetGame();
+  resetGame(0);
+  initGameEnv();
+}
 
+function startGameNextRound() {
+  resetGame(config.score);
+  initGameEnv();
+  $('.calc').show();
+}
+
+function initGameEnv() {
+  $("select").removeAttr("disabled");
+  $("#tips").hide();
   //设置拖放
   $(".calc .num").draggable({
+    disabled: false,
     helper: "clone"
   });
   $(".calc .num").droppable({
+    disabled: false,
     accept: ".calc div",
     activeClass: "ui-state-hover",
     hoverClass: "ui-state-active",
@@ -234,6 +250,7 @@ function resetBrackets() {
 }
 
 function reCalc() {
+
   var num = new Array();
   for (i = 0; i < 4; i++) {
     num[i] = $("#num" + i).text();
@@ -246,31 +263,56 @@ function reCalc() {
   config.result = eval(formula);
   $("#result").text(config.result);
   if (config.result == 24) {
-    winGame();
+    if (!config.isWin) {
+      winGame();
+    }
+
   } else {
     $("#tips").hide();
   }
 };
 
 function winGame() {
-  $("#tips").text('恭喜你，答案正确，游戏胜利！');
-  $("#tips").show();
+  config.isWin = true;
   var sorce, movesBonus, countDownBonus, baseSorce;
-  baseSorce = 50;
-  movesBonus = config.moves > 40 ? 0 : 40 - config.moves;
-  countDownBonus = 60 - config.timerCount;
+  baseSorce = 20;
+  movesBonus = config.moves > 40 ? 0 : Math.round((40 - config.moves) / 5);
+  countDownBonus = Math.round(config.timerCount / 10);
   sorce = movesBonus + countDownBonus + baseSorce;
   config.sorce += sorce;
   $("#score").text("当前得分" + config.sorce);
+  $("#totalSocre").text("累计得分：" + config.sorce);
+  $("#curSocre").text("本轮得分：" + sorce);
   frozeScreen();
+
+  $("#tips").text('恭喜你，答案正确！');
+  $('#answer').hide();
+  $("#wishes").hide();
+  $("#continueGame").show();
+  $("#userBoard").show();
+  $('#curSocre').show();
+  var continueGameTimer = setInterval(function() {
+    var curCountdown = parseInt($("#continueGame em").text()) - 1;
+    if (curCountdown <= 0) {
+      clearInterval(continueGameTimer);
+      startGameNextRound(); //下一届开始
+      $("#userBoard").hide();
+      $("#continueGame em").text("10");
+    } else {
+      $("#continueGame em").text(curCountdown);
+    }
+  }, 1000);
 };
 
 function loseGame() {
   $("#tips").text('很遗憾，时间到了，游戏失败！');
   $("#answer").text('参考答案：' + config.answerFormula);
-  $("#tips").show();
+  $('#answer').show();
+  $("#wishes").show();
+  $("#continueGame").hide();
+  $("#userBoard").show();
+  $('#curSocre').hide();
   frozeScreen();
-  //todo计算得分
 }
 
 function frozeScreen() {
@@ -282,6 +324,7 @@ function frozeScreen() {
   });
   $("select").attr("disabled", "disabled");
   clearInterval(config.gameTimer);
+  $('.calc').hide();
 }
 
 function addBrackets(index) {
@@ -330,4 +373,9 @@ function addBrackets(index) {
   }
 
   reCalc();
+}
+
+
+function startImmediately() {
+  $("#continueGame em").text('0');
 }

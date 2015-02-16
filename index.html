@@ -10,6 +10,7 @@
 <body>
   <div class="wrap">
     <h1>计算24</h1>
+    <div id="score">当前得分：0</div>
     <div class="description">
       <p>利用四则运算，使得4个随机数的运算结果是24.</p>
       <p>玩法：
@@ -51,36 +52,65 @@
             <option value="/">÷</option>
           </select>
           <div id="num3" class="num">4</div>
-          <div><span class="equal">=</span><span id='result'>?</span></div>
+          <div><span class="equal">=</span><span id='result'>?</span>
+          </div>
           <div class="clearfix"></div>
         </div>
         <!-- 括号选择区 -->
         <div id="bracketsOptions">
           <div>括号选择</div>
           <ul>
-            <li><a href="#" onclick="addBrackets(0)">a+b+c+d</a></li>
-            <li><a href="#" onclick="addBrackets(1)">(a+b)+c+d</a></li>
-            <li><a href="#" onclick="addBrackets(2)">a+b+(c+d)</a></li>
-            <li><a href="#" onclick="addBrackets(3)">(a+b)+(c+d)</a></li>
-            <li><a href="#" onclick="addBrackets(4)">(a+b+c)+d</a></li>
-            <li><a href="#" onclick="addBrackets(5)">a+(b+c+d)</a></li>
+            <li><a href="#" onclick="addBrackets(0)">a+b+c+d</a>
+            </li>
+            <li><a href="#" onclick="addBrackets(1)">(a+b)+c+d</a>
+            </li>
+            <li><a href="#" onclick="addBrackets(2)">a+b+(c+d)</a>
+            </li>
+            <li><a href="#" onclick="addBrackets(3)">(a+b)+(c+d)</a>
+            </li>
+            <li><a href="#" onclick="addBrackets(4)">(a+b+c)+d</a>
+            </li>
+            <li><a href="#" onclick="addBrackets(5)">a+(b+c+d)</a>
+            </li>
           </ul>
         </div>
         <!-- End括号选择区 -->
-        <div id='tips'>答案正确</div>
-        <div id='answer'></div>
+
+
         <div class="timerdiv"><span>倒计时</span><span class="timer">60</span><span>秒</span>
-          </div>
-          <div id="score">当前得分：0</div>
-          <div id="moves">移动次数：0</div>
-          <div class="clearfix"></div>
         </div>
-
+        <div id="moves">移动次数：0</div>
+        <div class="clearfix"></div>
       </div>
+      <!-- calc结束 -->
+    </div>
 
-      <script src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
-      <script src="http://libs.useso.com/js/jqueryui/1.10.4/jquery-ui.min.js"></script>
-      <script src="./js/main.js"></script>
+    <div class="clearfix"></div>
+    <div id='userBoard'>
+      <div>
+        <div id='tips'>答案正确</div>
+        <div id='answer'>12*2+1-1=24</div>
+        <div id='totalSocre'>累计得分:125</div>
+        <div id='curSocre'>本轮得分:50</div>
+        <div id='continueGame'>
+          <div>即将开始下一轮游戏</div>
+          <div>倒计时：<em>10</em>
+          </div>
+          <div>
+            <button onclick="startImmediately()">立即开始</button>
+          </div>
+        </div>
+        <div id='wishes'>再接再厉！</div>
+      </div>
+    </div>
+    <!-- userBoard结束 -->
+  </div>
+  <!-- wrap结束 -->
+
+
+  <script src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://libs.useso.com/js/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 
 </html>
