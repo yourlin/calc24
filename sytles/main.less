@@ -19,6 +19,7 @@ body {
 .wrap {
   width: 1000px;
   margin: 0 auto;
+  position: relative;
 }
 h1 {
   text-align: center;
@@ -99,12 +100,18 @@ h1 {
   text-align: center;
   font-size: 2em;
   display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 #moves {
   color: snow;
   text-align: center;
   font-size: 2em;
   display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 #bracketsOptions {
   margin: 0px auto;
@@ -129,13 +136,16 @@ h1 {
       height: 120px;
       width: 120px;
       line-height: 120px;
-      color: white;
+      color: #fff;
       border-radius: 50%;
       &:link, &:visited {
-        background: plum;
+        color: #fff;
+        background: #012156;
       }
       &:active, &:hover {
+        color: #ccc;
         background: crimson;
+        font-size: 18px;
       }
     }
   }
@@ -151,7 +161,7 @@ h1 {
   font-size: 40px;
   margin: 0 auto;
   display: none;
-  >div{
+  >div {
     position: absolute;
     top: 310px;
     left: 140px;
@@ -163,13 +173,7 @@ h1 {
   #answer {
     color: #f05654;
   }
-  #totalSocre{
-
-  }
-  #curSocre{
-
-  }
-  #continueGame {
+  #totalSocre {} #curSocre {} #continueGame {
     padding: 10px 0;
     width: 400px;
     height: 150px;
@@ -181,17 +185,17 @@ h1 {
       }
     }
   }
-  button{
+  button {
     border: #000 2px solid;
     border-radius: 10px;
     width: 200px;
     height: 50px;
     background: #99AFFB;
-    &:hover{
+    &:hover {
       background: #E8F795;
     }
   }
-  #wishes{
+  #wishes {
     color: red;
   }
 }

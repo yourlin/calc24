@@ -19,6 +19,7 @@ body {
 .wrap {
   width: 1000px;
   margin: 0 auto;
+  position: relative;
 }
 h1 {
   text-align: center;
@@ -100,12 +101,18 @@ h1 {
   text-align: center;
   font-size: 2em;
   display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 #moves {
   color: snow;
   text-align: center;
   font-size: 2em;
   display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 #bracketsOptions {
   margin: 0px auto;
@@ -132,16 +139,19 @@ h1 {
   height: 120px;
   width: 120px;
   line-height: 120px;
-  color: white;
+  color: #fff;
   border-radius: 50%;
 }
 #bracketsOptions li a:link,
 #bracketsOptions li a:visited {
-  background: plum;
+  color: #fff;
+  background: #012156;
 }
 #bracketsOptions li a:active,
 #bracketsOptions li a:hover {
+  color: #ccc;
   background: crimson;
+  font-size: 18px;
 }
 #userBoard {
   z-index: 10;
