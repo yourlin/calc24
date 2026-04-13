@@ -1,116 +1,12 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <title>计算24</title>
-  <link rel="stylesheet" type="text/css" href="./css/main.css">
-</head>
-
-<body>
-  <div class="wrap">
-    <h1>计算24</h1>
-    <div id="score">当前得分：0</div>
-    <div id="moves">移动次数：0</div>
-    <div class="description">
-      <p>利用四则运算，使得4个随机数的运算结果是24.</p>
-      <p>玩法：
-        <ol>
-          <li>拖动数字，改变其位置。</li>
-          <li>改变运算符（注意：运算符优先级）</li>
-          <li>在适当的位置添加括号，改变运算顺序</li>
-          <li>让结果等于24</li>
-        </ol>
-      </p>
-    </div>
-
-    <div id='content'>
-      <div>
-        <button id="start">游戏开始</button>
-      </div>
-      <!-- 计算区 -->
-      <div class='calc'>
-        <div class='formula'>
-          <div id="num0" class="num">5</div>
-          <select id='op1' class="op">
-            <option value="+" selected>＋</option>
-            <option value="-">－</option>
-            <option value="*">×</option>
-            <option value="/">÷</option>
-          </select>
-          <div id="num1" class="num">5</div>
-          <select id='op2' class="op">
-            <option value="+" selected>＋</option>
-            <option value="-">－</option>
-            <option value="*">×</option>
-            <option value="/">÷</option>
-          </select>
-          <div id="num2" class="num">6</div>
-          <select id='op3' class="op">
-            <option value="+" selected>＋</option>
-            <option value="-">－</option>
-            <option value="*">×</option>
-            <option value="/">÷</option>
-          </select>
-          <div id="num3" class="num">4</div>
-          <div><span class="equal">=</span><span id='result'>?</span>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <!-- 括号选择区 -->
-        <div id="bracketsOptions">
-          <div>括号选择</div>
-          <ul>
-            <li><a href="#" onclick="addBrackets(0)">a+b+c+d</a>
-            </li>
-            <li><a href="#" onclick="addBrackets(1)">(a+b)+c+d</a>
-            </li>
-            <li><a href="#" onclick="addBrackets(2)">a+b+(c+d)</a>
-            </li>
-            <li><a href="#" onclick="addBrackets(3)">(a+b)+(c+d)</a>
-            </li>
-            <li><a href="#" onclick="addBrackets(4)">(a+b+c)+d</a>
-            </li>
-            <li><a href="#" onclick="addBrackets(5)">a+(b+c+d)</a>
-            </li>
-          </ul>
-        </div>
-        <!-- End括号选择区 -->
-
-
-        <div class="timerdiv"><span>倒计时</span><span class="timer">60</span><span>秒</span>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <!-- calc结束 -->
-    </div>
-
-    <div class="clearfix"></div>
-    <div id='userBoard'>
-      <div>
-        <div id='tips'>答案正确</div>
-        <div id='answer'>12*2+1-1=24</div>
-        <div id='totalSocre'>累计得分:0</div>
-        <div id='curSocre'>本轮得分:0</div>
-        <div id='continueGame'>
-          <div>即将开始下一轮游戏</div>
-          <div>倒计时：<em>10</em>
-          </div>
-          <div>
-            <button onclick="startImmediately()">立即开始</button>
-          </div>
-        </div>
-        <div id='wishes'>再接再厉！</div>
-      </div>
-    </div>
-    <!-- userBoard结束 -->
-  </div>
-  <!-- wrap结束 -->
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="./js/main.js"></script>
-</body>
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Calc 24</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
