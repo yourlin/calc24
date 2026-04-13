@@ -101,28 +101,31 @@ body {
 .formula-board {
   background: var(--card-bg);
   border-radius: 16px;
-  padding: 20px 12px;
+  padding: 20px 16px;
   margin: 16px 0;
+  overflow: hidden;
 }
 
 .formula-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
   flex-wrap: nowrap;
 }
 
 .number-card {
-  width: 60px;
-  height: 60px;
+  width: 11vw;
+  height: 11vw;
+  max-width: 56px;
+  max-height: 56px;
   background: var(--number-bg);
   border: 2px solid var(--accent);
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 3.5vw, 1.5rem);
   font-weight: bold;
   cursor: grab;
   user-select: none;
@@ -147,13 +150,15 @@ body {
 }
 
 .operator-select {
-  width: 44px;
-  height: 44px;
+  width: 8vw;
+  height: 8vw;
+  max-width: 40px;
+  max-height: 40px;
   background: var(--op-bg);
   border: none;
   border-radius: 50%;
   color: white;
-  font-size: 1.3rem;
+  font-size: clamp(0.9rem, 3vw, 1.3rem);
   text-align: center;
   cursor: pointer;
   appearance: none;
@@ -169,7 +174,7 @@ body {
 }
 
 .bracket {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: bold;
   color: var(--accent-light);
   line-height: 1;
@@ -177,17 +182,17 @@ body {
 }
 
 .equal-sign {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 3vw, 1.5rem);
   color: var(--text-muted);
-  margin: 0 4px;
+  margin: 0 2px;
   flex-shrink: 0;
 }
 
 .result-display {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 3.5vw, 1.5rem);
   font-weight: bold;
   color: var(--accent-light);
-  min-width: 40px;
+  min-width: 30px;
   text-align: center;
   flex-shrink: 0;
 
@@ -276,6 +281,18 @@ body {
       &.urgent {
         color: var(--warning);
       }
+    }
+  }
+
+  .estimated-score {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+
+    span {
+      color: var(--accent-light);
+      font-weight: bold;
+      font-size: 1.1rem;
     }
   }
 }

@@ -4,6 +4,8 @@ import { computed } from 'vue'
 const props = defineProps<{
   timeLeft: number
   total: number
+  estimatedScore: number
+  estimatedLabel: string
 }>()
 
 const radius = 34
@@ -34,6 +36,9 @@ const isUrgent = computed(() => props.timeLeft <= 10)
       <div class="timer-text" :class="{ urgent: isUrgent }">
         {{ timeLeft }}
       </div>
+    </div>
+    <div class="estimated-score">
+      {{ estimatedLabel }}：<span>{{ estimatedScore }}</span>
     </div>
   </div>
 </template>

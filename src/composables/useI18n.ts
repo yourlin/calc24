@@ -33,6 +33,7 @@ const messages = {
     loseTitle: '时间到!',
     referenceAnswer: '参考答案：',
     playAgain: '再来一局',
+    estimatedScore: '预计得分',
   },
   en: {
     title: 'Calc 24',
@@ -62,6 +63,7 @@ const messages = {
     loseTitle: "Time's Up!",
     referenceAnswer: 'Answer: ',
     playAgain: 'Play Again',
+    estimatedScore: 'Est. Score',
   },
 } as const
 

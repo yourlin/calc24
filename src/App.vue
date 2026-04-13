@@ -18,6 +18,7 @@ const {
   answerFormula,
   result,
   isWin,
+  estimatedScore,
   timer,
   startGame,
   nextRound,
@@ -85,6 +86,8 @@ function handleRestart() {
     <CountdownTimer
       :time-left="timer.timeLeft.value"
       :total="60"
+      :estimated-score="estimatedScore"
+      :estimated-label="t.estimatedScore"
     />
 
     <div class="scoring-rules">

@@ -23,6 +23,13 @@ export function useGame() {
     return result.value !== null && Math.abs(result.value - 24) < 1e-9
   })
 
+  const estimatedScore = computed(() => {
+    const baseScore = 20
+    const movesBonus = moves.value > 40 ? 0 : Math.round((40 - moves.value) / 5)
+    const timeBonus = Math.round(timer.timeLeft.value / 10)
+    return baseScore + movesBonus + timeBonus
+  })
+
   function generateNumbers(): number[] {
     while (true) {
       const nums = Array.from({ length: 4 }, () => Math.floor(Math.random() * 13) + 1)
@@ -77,11 +84,7 @@ export function useGame() {
   function checkWin() {
     if (isWin.value) {
       timer.stop()
-      const baseScore = 20
-      const movesBonus = moves.value > 40 ? 0 : Math.round((40 - moves.value) / 5)
-      const timeBonus = Math.round(timer.timeLeft.value / 10)
-      const roundScore = baseScore + movesBonus + timeBonus
-      score.value += roundScore
+      score.value += estimatedScore.value
       gamePhase.value = 'won'
     }
   }
@@ -100,6 +103,7 @@ export function useGame() {
     answerFormula,
     result,
     isWin,
+    estimatedScore,
     timer,
     startGame,
     nextRound,
