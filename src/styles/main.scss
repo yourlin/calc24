@@ -355,6 +355,27 @@ body {
       box-shadow: 0 4px 20px rgba(233, 69, 96, 0.4);
     }
   }
+
+  .leaderboard-btn {
+    display: block;
+    margin: 16px auto 0;
+    padding: 10px 32px;
+    font-size: 1rem;
+    background: transparent;
+    color: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:hover {
+      background: rgba(233, 69, 96, 0.1);
+    }
+  }
 }
 
 // Result overlay
@@ -445,5 +466,157 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+// Leaderboard Panel
+.leaderboard-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.leaderboard-panel {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+
+  .leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .leaderboard-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--accent-light);
+  }
+
+  .leaderboard-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+
+    &:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.leaderboard-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  .leaderboard-tab {
+    flex: 1;
+    padding: 8px 4px;
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 20px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+  }
+}
+
+.leaderboard-list {
+  .leaderboard-list-header {
+    display: flex;
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .leaderboard-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #222;
+    font-size: 0.85rem;
+    color: var(--text);
+
+    &.top-three {
+      .lb-col-rank {
+        color: var(--accent-light);
+        font-weight: bold;
+      }
+    }
+  }
+
+  .lb-col-rank {
+    width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .lb-col-value {
+    flex: 1;
+    text-align: center;
+    color: var(--accent-light);
+    font-weight: bold;
+  }
+
+  .lb-col-date {
+    width: 90px;
+    text-align: right;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .leaderboard-empty {
+    text-align: center;
+    padding: 32px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+}
+
+// New Record Badge
+.new-record-badge {
+  font-size: 1.1rem;
+  color: var(--accent-light);
+  font-weight: bold;
+  margin-bottom: 12px;
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.05);
   }
 }

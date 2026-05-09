@@ -5,6 +5,7 @@ const props = defineProps<{
   phase: 'won' | 'lost'
   score: number
   answerFormula: string
+  newRecords: { highScore: boolean; fastestTime: boolean; fewestMoves: boolean } | null
   t: Record<string, string>
 }>()
 
@@ -61,6 +62,9 @@ onUnmounted(() => clearTimer())
       <template v-if="phase === 'won'">
         <div class="result-title" style="color: var(--success)">
           {{ t.winTitle }}
+        </div>
+        <div v-if="newRecords && (newRecords.highScore || newRecords.fastestTime || newRecords.fewestMoves)" class="new-record-badge">
+          {{ t.newRecord }}
         </div>
         <div class="result-detail">
           {{ t.totalScore }}<span>{{ score }}</span>

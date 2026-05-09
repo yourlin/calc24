@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { useGame } from './composables/useGame'
 import { useI18n } from './composables/useI18n'
+import { useLeaderboard } from './composables/useLeaderboard'
+import type { NewRecordResult } from './composables/useLeaderboard'
 import FormulaBoard from './components/FormulaBoard.vue'
 import BracketPicker from './components/BracketPicker.vue'
 import CountdownTimer from './components/CountdownTimer.vue'
 import ResultDialog from './components/ResultDialog.vue'
+import LeaderboardPanel from './components/LeaderboardPanel.vue'
 
 const { t, lang, toggleLang } = useI18n()
+const { addRecord } = useLeaderboard()
+
+const showLeaderboard = ref(false)
+const newRecords = ref<NewRecordResult | null>(null)
 
 const {
   numbers,
@@ -19,6 +27,8 @@ const {
   result,
   isWin,
   estimatedScore,
+  lastRoundTime,
+  lastRoundMoves,
   timer,
   startGame,
   nextRound,
@@ -28,8 +38,21 @@ const {
 } = useGame()
 
 function handleRestart() {
+  newRecords.value = null
   startGame()
 }
+
+function handleNext() {
+  newRecords.value = null
+  nextRound()
+}
+
+// Watch for win to record leaderboard
+watch(gamePhase, (phase) => {
+  if (phase === 'won') {
+    newRecords.value = addRecord(estimatedScore.value, lastRoundTime.value, lastRoundMoves.value)
+  }
+})
 </script>
 
 <template>
@@ -51,6 +74,7 @@ function handleRestart() {
     </div>
     <div class="start-section">
       <button class="start-btn" @click="startGame">{{ t.startGame }}</button>
+      <button class="leaderboard-btn" @click="showLeaderboard = true">{{ t.leaderboard }}</button>
     </div>
   </template>
 
@@ -106,8 +130,16 @@ function handleRestart() {
     :phase="gamePhase"
     :score="score"
     :answer-formula="answerFormula"
+    :new-records="newRecords"
     :t="t"
-    @next="nextRound"
+    @next="handleNext"
     @restart="handleRestart"
+  />
+
+  <!-- Leaderboard panel -->
+  <LeaderboardPanel
+    v-if="showLeaderboard"
+    :t="t"
+    @close="showLeaderboard = false"
   />
 </template>
