@@ -12,6 +12,8 @@ export function useGame() {
   const moves = ref(0)
   const gamePhase = ref<GamePhase>('idle')
   const answerFormula = ref('')
+  const lastRoundTime = ref(0)
+  const lastRoundMoves = ref(0)
 
   const timer = useTimer(60)
 
@@ -84,6 +86,8 @@ export function useGame() {
   function checkWin() {
     if (isWin.value) {
       timer.stop()
+      lastRoundTime.value = 60 - timer.timeLeft.value
+      lastRoundMoves.value = moves.value
       score.value += estimatedScore.value
       gamePhase.value = 'won'
     }
@@ -104,6 +108,8 @@ export function useGame() {
     result,
     isWin,
     estimatedScore,
+    lastRoundTime,
+    lastRoundMoves,
     timer,
     startGame,
     nextRound,
