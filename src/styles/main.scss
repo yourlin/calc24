@@ -882,3 +882,32 @@ body {
   fill: var(--text-muted);
   font-size: 9px;
 }
+
+
+// Result secondary buttons
+.result-secondary-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.result-btn-secondary {
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid #444;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    color: var(--accent-light);
+    border-color: var(--accent);
+  }
+}

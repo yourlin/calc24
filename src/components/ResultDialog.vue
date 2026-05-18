@@ -12,6 +12,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   next: []
   restart: []
+  home: []
+  leaderboard: []
 }>()
 
 const countdown = ref(10)
@@ -53,6 +55,16 @@ function handleRestart() {
   emit('restart')
 }
 
+function handleHome() {
+  clearTimer()
+  emit('home')
+}
+
+function handleLeaderboard() {
+  clearTimer()
+  emit('leaderboard')
+}
+
 onUnmounted(() => clearTimer())
 </script>
 
@@ -72,6 +84,10 @@ onUnmounted(() => clearTimer())
         <button class="result-btn" @click="handleNext">
           {{ t.nextRound }}
         </button>
+        <div class="result-secondary-btns">
+          <button class="result-btn-secondary" @click="handleHome">{{ t.backHome || '回到首页' }}</button>
+          <button class="result-btn-secondary" @click="handleLeaderboard">{{ t.leaderboard }}</button>
+        </div>
         <div class="countdown-hint">
           {{ t.autoCountdown }}<em>{{ countdown }}</em> {{ t.seconds }}
         </div>
@@ -86,6 +102,10 @@ onUnmounted(() => clearTimer())
         <button class="result-btn" @click="handleRestart">
           {{ t.playAgain }}
         </button>
+        <div class="result-secondary-btns">
+          <button class="result-btn-secondary" @click="handleHome">{{ t.backHome || '回到首页' }}</button>
+          <button class="result-btn-secondary" @click="handleLeaderboard">{{ t.leaderboard }}</button>
+        </div>
       </template>
     </div>
   </div>

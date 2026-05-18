@@ -51,6 +51,17 @@ function handleNext() {
   nextRound()
 }
 
+function handleHome() {
+  newRecords.value = null
+  gamePhase.value = 'idle'
+}
+
+function handleResultLeaderboard() {
+  newRecords.value = null
+  gamePhase.value = 'idle'
+  showLeaderboard.value = true
+}
+
 // Watch for win to record leaderboard
 watch(gamePhase, (phase) => {
   if (phase === 'won') {
@@ -157,6 +168,8 @@ watch(gamePhase, (phase) => {
     :t="t"
     @next="handleNext"
     @restart="handleRestart"
+    @home="handleHome"
+    @leaderboard="handleResultLeaderboard"
   />
 
   <!-- Leaderboard panel -->

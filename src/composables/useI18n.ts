@@ -65,6 +65,7 @@ const messages = {
     trendAvgLine: '平均',
     unlockRadar: '再玩 {n} 局解锁能力分析',
     dataAccumulating: '数据积累中...',
+    backHome: '回到首页',
   },
   en: {
     title: 'Calc 24',
@@ -126,6 +127,7 @@ const messages = {
     trendAvgLine: 'Average',
     unlockRadar: 'Play {n} more to unlock',
     dataAccumulating: 'Accumulating data...',
+    backHome: 'Home',
   },
 } as const
 
