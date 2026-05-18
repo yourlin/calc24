@@ -1,0 +1,10 @@
+# Workshop 团队级中央配置覆盖
+# 确保中文为默认语言
+
+[core]
+communication_language = "Chinese"
+document_output_language = "Chinese"
+
+[modules.bmm]
+project_name = "calc24"
+user_skill_level = "intermediate"
