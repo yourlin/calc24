@@ -3,17 +3,21 @@ import { ref, watch } from 'vue'
 import { useGame } from './composables/useGame'
 import { useI18n } from './composables/useI18n'
 import { useLeaderboard } from './composables/useLeaderboard'
+import { useStats } from './composables/useStats'
 import type { NewRecordResult } from './composables/useLeaderboard'
 import FormulaBoard from './components/FormulaBoard.vue'
 import BracketPicker from './components/BracketPicker.vue'
 import CountdownTimer from './components/CountdownTimer.vue'
 import ResultDialog from './components/ResultDialog.vue'
 import LeaderboardPanel from './components/LeaderboardPanel.vue'
+import StatsPanel from './components/StatsPanel.vue'
 
 const { t, lang, toggleLang } = useI18n()
 const { addRecord } = useLeaderboard()
+const { recordGame } = useStats()
 
 const showLeaderboard = ref(false)
+const showStats = ref(false)
 const newRecords = ref<NewRecordResult | null>(null)
 
 const {
@@ -51,6 +55,22 @@ function handleNext() {
 watch(gamePhase, (phase) => {
   if (phase === 'won') {
     newRecords.value = addRecord(estimatedScore.value, lastRoundTime.value, lastRoundMoves.value)
+    recordGame({
+      won: true,
+      timeUsed: lastRoundTime.value,
+      moves: lastRoundMoves.value,
+      score: estimatedScore.value,
+      numbers: [...numbers.value],
+    })
+  }
+  if (phase === 'lost') {
+    recordGame({
+      won: false,
+      timeUsed: 60,
+      moves: moves.value,
+      score: 0,
+      numbers: [...numbers.value],
+    })
   }
 })
 </script>
@@ -74,7 +94,10 @@ watch(gamePhase, (phase) => {
     </div>
     <div class="start-section">
       <button class="start-btn" @click="startGame">{{ t.startGame }}</button>
-      <button class="leaderboard-btn" @click="showLeaderboard = true">{{ t.leaderboard }}</button>
+      <div class="start-section-btns">
+        <button class="leaderboard-btn" @click="showLeaderboard = true">{{ t.leaderboard }}</button>
+        <button class="leaderboard-btn" @click="showStats = true">{{ t.stats || '统计' }}</button>
+      </div>
     </div>
   </template>
 
@@ -141,5 +164,12 @@ watch(gamePhase, (phase) => {
     v-if="showLeaderboard"
     :t="t"
     @close="showLeaderboard = false"
+  />
+
+  <!-- Stats panel -->
+  <StatsPanel
+    v-if="showStats"
+    :t="t"
+    @close="showStats = false"
   />
 </template>
