@@ -91,19 +91,7 @@ function calcStats(records: GameRecord[]): PlayerStats {
   let currentStreak = 0
   let streak = 0
 
-  for (let i = records.length - 1; i >= 0; i--) {
-    if (records[i].won) {
-      streak++
-      if (i === records.length - 1 || (i < records.length - 1 && streak === records.length - i)) {
-        currentStreak = streak
-      }
-    } else {
-      if (i === records.length - 1) currentStreak = 0
-      break
-    }
-  }
   // 从头遍历计算最长连胜
-  streak = 0
   for (const r of records) {
     if (r.won) {
       streak++
@@ -112,8 +100,8 @@ function calcStats(records: GameRecord[]): PlayerStats {
       streak = 0
     }
   }
-  // 重新计算 currentStreak（从末尾连续胜利）
-  currentStreak = 0
+
+  // 从末尾计算当前连胜
   for (let i = records.length - 1; i >= 0; i--) {
     if (records[i].won) {
       currentStreak++

@@ -47,7 +47,7 @@ function applyOp(a: NumExpr, b: NumExpr, op: string): NumExpr | null {
 
 /** Wrap expression in parentheses if it contains + or - (for * and / precedence) */
 function wrapIfNeeded(n: NumExpr, _context: string): string {
-  if (n.expr.match(/[+\-]/) && n.expr.length > String(n.value).length) {
+  if (n.expr.match(/[+-]/) && n.expr.length > String(n.value).length) {
     return `(${n.expr})`
   }
   return n.expr
