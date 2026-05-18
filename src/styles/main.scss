@@ -620,3 +620,294 @@ body {
     transform: scale(1.05);
   }
 }
+
+
+// Stats Panel
+.stats-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.stats-panel {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stats-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--accent-light);
+}
+
+.stats-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+
+  &:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.stats-cards {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stats-card {
+  flex: 1;
+  background: var(--number-bg);
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+
+  .stats-card-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-light);
+    margin-bottom: 4px;
+  }
+
+  .stats-card-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+}
+
+.stats-section {
+  margin-bottom: 20px;
+
+  .stats-section-title {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+}
+
+.stats-empty {
+  text-align: center;
+  padding: 20px 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.chart-placeholder {
+  text-align: center;
+  font-size: 3rem;
+  padding: 30px 0;
+  opacity: 0.3;
+}
+
+.stats-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #333;
+}
+
+.stats-footer-item {
+  font-size: 0.85rem;
+
+  .stats-footer-label {
+    color: var(--text-muted);
+  }
+
+  .stats-footer-value {
+    color: var(--accent-light);
+    font-weight: bold;
+    margin-left: 4px;
+  }
+}
+
+.start-section-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+
+// Radar Chart
+.radar-chart {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.radar-svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+
+.radar-grid {
+  fill: none;
+  stroke: #333;
+  stroke-width: 0.5;
+}
+
+.radar-axis {
+  stroke: #444;
+  stroke-width: 0.5;
+}
+
+.radar-data {
+  fill: rgba(233, 69, 96, 0.2);
+  stroke: var(--accent);
+  stroke-width: 2;
+  transition: all 0.6s ease-out;
+
+  &:not(.animated) {
+    transform: scale(0);
+    transform-origin: 140px 140px;
+  }
+
+  &.animated {
+    transform: scale(1);
+    transform-origin: 140px 140px;
+  }
+}
+
+.radar-dot {
+  fill: var(--accent-light);
+  transition: all 0.6s ease-out;
+
+  &:not(.animated) {
+    opacity: 0;
+  }
+
+  &.animated {
+    opacity: 1;
+  }
+}
+
+.radar-label {
+  fill: var(--text-muted);
+  font-size: 11px;
+}
+
+// Trend Chart
+.trend-chart {
+  padding: 4px 0;
+}
+
+.trend-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  .trend-tab {
+    padding: 6px 16px;
+    background: transparent;
+    border: 1px solid #444;
+    border-radius: 16px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+  }
+}
+
+.trend-svg {
+  width: 100%;
+  height: auto;
+}
+
+.trend-line {
+  fill: none;
+  stroke: var(--accent-light);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trend-avg-line {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+  opacity: 0.6;
+}
+
+.trend-avg-label {
+  fill: var(--text-muted);
+  font-size: 9px;
+}
+
+.trend-dot {
+  &.won {
+    fill: var(--success);
+  }
+
+  &.lost {
+    fill: var(--warning);
+  }
+}
+
+.trend-axis-label {
+  fill: var(--text-muted);
+  font-size: 9px;
+}
+
+
+// Result secondary buttons
+.result-secondary-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.result-btn-secondary {
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid #444;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    color: var(--accent-light);
+    border-color: var(--accent);
+  }
+}
